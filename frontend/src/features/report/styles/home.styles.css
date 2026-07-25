@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    gap: 2rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font: inherit;
+    width: 40%;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #333333;
+    color: white;
+}
+
+label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+input [type='file']{
+
+}
+
+h1 {
+    font-size: 2.5rem;
+    padding-block: 2rem;
+}
+
+#resume-label {
+    background-color: #424242;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    padding: 1rem;
+    font-weight: normal;
+    border-radius: 12px;
+}
+
+#resume-label:hover {
+    background-color: #5d5d5d;
+}
+
+.input-group button {
+    background-color: #2e4ade;
+    color: white;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    width: 70%;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s;
+    padding-block: 0.7rem;
+}
+
+.input-group button:hover {
+    background-color: #235cf6;
+}
+
+.input-group p {
+    padding: 0;
+}
+
+.loader {
+    --color-1: #fff;
+    --color-2: #ff3d00;
+    --size: 1px;
+
+    width: calc(48 * var(--size));
+    height: calc(48 * var(--size));
+    border: calc(3 * var(--size)) solid var(--color-1);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+.loader::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(56 * var(--size));
+    height: calc(56 * var(--size));
+    border-radius: 50%;
+    border: calc(3 * var(--size)) solid transparent;
+    border-bottom-color: var(--color-2);
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    gap: 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.loader-container span {
+    display: block;
+    font-weight: 600;
+}

@@ -1,0 +1,7 @@
+.idea
+.gitignore
+.env
+.env.local
+
+node_modules
+*.config.js
