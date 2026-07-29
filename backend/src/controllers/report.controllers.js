@@ -1,5 +1,5 @@
 import {PDFParse} from "pdf-parse"
-import {generateAIReport} from "../services/ai.service.js";
+import {generateAIReport, generateResumePdf} from "../services/ai.service.js";
 import Report from "../models/report.model.js";
 
 export async function generateReport(req, res, next) {
@@ -78,7 +78,7 @@ export async function getAllReports(req, res, next) {
 }
 
 export async function generateResumeFromDescriptions(req, res) {
-    const reportID = req.params.reportID;
+    const reportID = req.params;
     const report = await Report.findById(reportID)
     if (!report) {
         return res.status(404).json({

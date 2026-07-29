@@ -23,3 +23,10 @@ export async function getAllReports() {
     const response = await api.get('/')
     return response.data
 }
+
+export async function generateResumePdf({reportID}) {
+    const response = await api.post(`/resume/${reportID}`, {
+        responseType: 'blob',
+    })
+    return response.data
+}

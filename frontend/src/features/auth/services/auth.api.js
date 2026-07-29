@@ -19,7 +19,7 @@ export async function register({name, email, password}, setFieldErrors, setGloba
     }
 }
 
-export async function login({email, password}, setFieldErrors, setGlobalError) {
+export async function login({email, password}) {
     try {
         const response = await axios.post("http://localhost:8000/api/auth/login", {
             email, password
@@ -46,7 +46,6 @@ export async function whoami() {
         const response = await axios.get("http://localhost:8000/api/auth/whoami", {
             withCredentials: true
         })
-        console.log(response)
         return response.data;
     }catch (e) {
         console.log(e)

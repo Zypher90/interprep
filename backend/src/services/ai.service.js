@@ -1,7 +1,7 @@
 import {GoogleGenAI} from "@google/genai";
 import {GOOGLE_API_KEY} from "../config/env.config.js";
 import * as z from "zod";
-import {puppeteer} from "puppeteer";
+import puppeteer from "puppeteer";
 
 const ai = new GoogleGenAI({
     apiKey: GOOGLE_API_KEY
