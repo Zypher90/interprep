@@ -1,6 +1,7 @@
 import {GoogleGenAI} from "@google/genai";
 import {GOOGLE_API_KEY} from "../config/env.config.js";
 import * as z from "zod";
+import {puppeteer} from "puppeteer";
 
 const ai = new GoogleGenAI({
     apiKey: GOOGLE_API_KEY
@@ -48,4 +49,40 @@ export async function generateAIReport({resume, selfDescription, jobDescription}
         throw new Error("AI service returned an empty response.");
     }
     return JSON.parse(response.text)
+}
+
+const resumePdfSchema = z.object({
+    html: z.string().describe("The HTML content of the resume which can be converted to PDF format using puppeteer or any other library"),
+})
+
+export async function generateResumePdf({resume, selfDescription, jobDescription}) {
+    const prompt = `Generate a resume in HTML format for a candidate with the following details:
+                    Resume: ${resume},
+                    Self description of candidate: ${selfDescription},
+                    Job description candidate is aiming for: ${jobDescription}
+                    The HTML should be well-structured and formatted, suitable for conversion to PDF.`
+    const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json",
+            responseSchema: z.toJSONSchema(resumePdfSchema),
+        }
+    })
+    if(!response.text) {
+        throw new Error("AI service returned an empty response.");
+    }
+    const content = JSON.parse(response.text)
+
+    const pdfBuffer = await generatePdfFromHtml(content.html)
+    return pdfBuffer
+}
+
+async function generatePdfFromHtml(htmlContent) {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.setContent(htmlContent, {waitUntil: 'networkidle0'});
+    const buffer = await page.pdf({format: 'A4'});
+    await browser.close();
+    return buffer;
 }

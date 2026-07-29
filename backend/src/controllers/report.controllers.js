@@ -76,3 +76,19 @@ export async function getAllReports(req, res, next) {
         next(err);
     }
 }
+
+export async function generateResumeFromDescriptions(req, res) {
+    const reportID = req.params.reportID;
+    const report = await Report.findById(reportID)
+    if (!report) {
+        return res.status(404).json({
+            message: "No reports found with this ID"
+        })
+    }
+
+    const {selfDescription, jobDescription, resume} = report
+    const pdfBuffer = await generateResumePdf({resume, selfDescription, jobDescription})
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=resume_${reportID}.pdf`);
+    res.send(pdfBuffer);
+}

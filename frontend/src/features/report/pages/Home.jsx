@@ -43,7 +43,7 @@ export default function Home() {
         return (
             <div className="loader-container">
             <div className= "loader"></div>
-            <span>Generating your interview report</span>
+            <span>Generating your interview report...</span>
         </div>)
     }
     else{

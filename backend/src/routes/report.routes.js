@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {upload} from "../middleware/file.middleware.js";
-import {generateReport, getAllReports, getReportById} from "../controllers/report.controllers.js";
+import {generateReport, getAllReports, getReportById, generateResumeFromDescriptions} from "../controllers/report.controllers.js";
 import {authorizeUser} from "../middleware/auth.middleware.js";
 
 const reportRouter = Router();
@@ -21,5 +21,6 @@ const handleUpload = (req, res, next) => {
 reportRouter.post('/', authorizeUser, handleUpload, generateReport);
 reportRouter.get('/:reportID', authorizeUser, getReportById);
 reportRouter.get('/', authorizeUser, getAllReports);
+reportRouter.post('/resume/:reportID', authorizeUser, generateResumeFromDescriptions);
 
 export default reportRouter
